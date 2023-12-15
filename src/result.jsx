@@ -1,13 +1,17 @@
+import { ProgrammingQuestion } from "./Questions";
 const Result = ({ answer, tryAgain }) => {
   console.log(answer);
   return (
     <div>
       <p className=" h-32 w-[570px] flex items-center ml-8 font-bold text-white text-4xl">
-        You have Secured
-        <span style={{ color: "red" }} className="ml-2 mr-2">
+        You Scored
+        <span style={{ color: "green" }} className="ml-2 mr-2">
           {answer}
         </span>
-        Marks!
+        out of
+        <span style={{ color: "red" }} className="ml-2 mr-2">
+          {ProgrammingQuestion.length}
+        </span>
       </p>
       <div className="flex justify-end">
         <button
