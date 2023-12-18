@@ -1,11 +1,26 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function InputForm() {
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState({
+    Name: "",
+    email: "",
+    City: "",
+    qualification: "",
+    Subject: "",
+    age: "",
+  });
+
 
   const handleSubmit = () => {
-    console.log(userData);
+    console.log("User Data:", userData);
+  };
+
+ 
+
+  const handleInputChange = (tempVar, field) => {
+    const value = tempVar.target.value;
+    setUserData((prevData) => ({ ...prevData, [field]: value }));
   };
 
   return (
@@ -21,6 +36,7 @@ function InputForm() {
               type="text"
               id="name"
               className="px-3 py-2 rounded-md border-2 border-cyan-600   shadow-sm "
+              onChange={(tempVar) => handleInputChange(tempVar, "Name")}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -29,6 +45,7 @@ function InputForm() {
               type="email"
               id="city"
               className="px-3 py-2 rounded-md border-2 border-cyan-600 shadow-sm "
+              onChange={(tempVar) => handleInputChange(tempVar, "email")}
             />
           </div>
 
@@ -38,6 +55,7 @@ function InputForm() {
               type="text"
               id="city"
               className="px-3 py-2 rounded-md border-2 border-cyan-600 shadow-sm "
+              onChange={(tempVar) => handleInputChange(tempVar, "City")}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -47,9 +65,10 @@ function InputForm() {
             <select
               id="qualification"
               className="px-3 py-2 rounded-md border-2  border-cyan-600 shadow-sm "
+              onChange={(tempVar) => handleInputChange(tempVar, "qualification")}
             >
               <option value="">Select Degree</option>
-              <option>Intermediate</option>
+               <option>Intermediate</option>
               <option>Bachelor's of Sciences</option>
               <option>Master's of Sciences</option>
               <option>Ph.D</option>
@@ -61,6 +80,8 @@ function InputForm() {
             <select
               id="qualification"
               className="px-3 py-2 rounded-md border-2  border-cyan-600 shadow-sm "
+              onChange={(tempVar) => handleInputChange(tempVar, "Subject")}
+              
             >
               <option value="">Select Subject</option>
               <option>Math</option>
@@ -78,12 +99,11 @@ function InputForm() {
               type="number"
               id="age"
               className="px-3 py-2 rounded-md border-2  border-cyan-600 "
+              onChange={(tempVar) => handleInputChange(tempVar, "age")}
             />
           </div>
           <Link
             to="/quiz"
-            type="submit"
-            value={userData.name}
             onClick={handleSubmit}
             className="inline-flex items-center px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
           >
@@ -94,4 +114,5 @@ function InputForm() {
     </div>
   );
 }
+
 export default InputForm;

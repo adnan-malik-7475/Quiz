@@ -10,16 +10,13 @@ function QuizPaper() {
 
   const [currentSubIdx, setcurrentSubIdx] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-
   const [showResult, setShowResult] = useState(false);
   const [trueAnswers, setTrueAnswers] = useState(0);
 
   const handleClick = (selectedOption) => {
-
     const currentAnswer = currentQuestion.answer;
 
     if (selectedOption === currentAnswer) {
-
       setTrueAnswers(trueAnswers + 1);
     }
 
@@ -46,7 +43,8 @@ function QuizPaper() {
     setTrueAnswers(0);
     setShowResult(false);
 
-    setcurrentSubIdx(0);};
+    setcurrentSubIdx(0);
+  };
 
   return (
     <div className="h-screen bg-cyan-600 flex items-center justify-center">

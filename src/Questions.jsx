@@ -19,7 +19,7 @@ export const ProgrammingQuestion = [
         question:
           "Which data structure follows the Last In, First Out (LIFO) principle?",
         options: ["Stack", "Queue", "Array", "None of the Above"],
-        answer: "Document object Model",
+        answer: "Stack",
       },
       {
         id: 4,
@@ -61,13 +61,54 @@ export const ProgrammingQuestion = [
         id: 9,
         question: "Value of Pi",
         options: ["2.14", "3.4", "1971", "1951"],
-        answer: "1956",
+        answer: "2.14",
       },
       {
         id: 10,
         question: "What is the square of 13",
         options: ["269", "169", "159", "39"],
         answer: "169",
+      },
+    ],
+  },
+
+  {
+    subject: "Computer",
+    questions: [
+      {
+        id: 11,
+        question: "The Brain of computer that executes the instructions",
+        options: ["CPU", "RAM", "ROM", "None of the Above "],
+        answer: "CPU",
+      },
+      {
+        id: 12,
+        question: " CU  stands for",
+        options: [
+          "Control Unit ",
+          "Cache Unit",
+          "Calculating Unit",
+          "Com Unit",
+        ],
+        answer: "Control Unit",
+      },
+      {
+        id: 13,
+        question: "An Important Charateristic of RAM is",
+        options: ["Read Only", "Write Only", "Volatile", "Non Volatile"],
+        answer: "Volatile",
+      },
+      {
+        id: 14,
+        question: "Memory is madeup of",
+        options: ["Set of Wires", "Set of Circuits", "BIOS", "Cells"],
+        answer: "Cells",
+      },
+      {
+        id: 15,
+        question: "CPU is also called",
+        options: ["ALU", "CU", "Processor", "BUS"],
+        answer: "Processor",
       },
     ],
   },
