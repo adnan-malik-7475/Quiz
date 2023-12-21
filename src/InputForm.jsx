@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSelectedSubject } from "./redux/slice";
 
 function InputForm() {
   const [userData, setUserData] = useState({
@@ -11,26 +13,26 @@ function InputForm() {
     age: "",
   });
 
-
-  const handleSubmit = () => {
-    console.log("User Data:", userData);
-  };
-
- 
+  const dispatch = useDispatch();
 
   const handleInputChange = (tempVar, field) => {
     const value = tempVar.target.value;
     setUserData((prevData) => ({ ...prevData, [field]: value }));
   };
 
+  const addSubject = () => {
+    console.log(userData.Subject)
+    dispatch(setSelectedSubject(userData.Subject));
+  };
+
   return (
     <div className="w-screen bg-cyan-600 h-screen">
-      <div className="w-[400px] m-auto py-12 bg-cyan-600 ">
-        <div className="flex flex-col   gap-4 border border-cyan-600 rounded-md p-4 bg-[#091d31] ">
+      <div className="w-[400px] m-auto py-4 bg-cyan-600 ">
+        <div className="flex flex-col   gap-2 border border-cyan-600 rounded-md p-4 bg-[#091d31] h-[550px]  ">
           <h2 className="text-lg font-semibold text-white">
             Tell us about yourself!
           </h2>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <label className="text-sm font-medium text-white">Name:</label>
             <input
               type="text"
@@ -39,7 +41,7 @@ function InputForm() {
               onChange={(tempVar) => handleInputChange(tempVar, "Name")}
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <label className="text-sm font-medium text-white">Email:</label>{" "}
             <input
               type="email"
@@ -49,7 +51,7 @@ function InputForm() {
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <label className="text-sm font-medium text-white">City:</label>
             <input
               type="text"
@@ -58,7 +60,7 @@ function InputForm() {
               onChange={(tempVar) => handleInputChange(tempVar, "City")}
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <label className="text-sm font-medium text-white">
               Qualifications
             </label>
@@ -75,7 +77,7 @@ function InputForm() {
             </select>
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <label className="text-sm font-medium text-white">Subjects</label>
             <select
               id="qualification"
@@ -91,7 +93,7 @@ function InputForm() {
             </select>
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <label className="text-sm font-medium text-white">
               Age (optional):
             </label>
@@ -104,12 +106,12 @@ function InputForm() {
           </div>
           <Link
             to="/quiz"
-            onClick={handleSubmit}
-            className="inline-flex items-center px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+            onClick={addSubject}
+            className="inline-flex items-center px-4 py-2 mt-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
           >
             <p className="flex m-auto"> Submit</p>
           </Link>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );

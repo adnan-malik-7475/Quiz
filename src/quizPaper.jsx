@@ -1,25 +1,31 @@
-import React, { useState } from "react";
-import { Button } from "./InputComponent";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { ProgrammingQuestion } from "./Questions";
-import Result from "./result";
+import Result from "./Result";
+import Button from './InputComponent'
 
 function QuizPaper() {
+
+
+  const selectedSubject = useSelector((state) => state.questions);
+
+  const finalSub = ProgrammingQuestion.filter((sub) => sub.subject === selectedSubject)
+  console.log(finalSub)
+  const [currentQuestions, setCurrentQuestions] = useState(finalSub.map((sub) => sub.questions));
+  console.log(currentQuestions)
+  
   const [currentQuestion, setCurrentQuestion] = useState(
     ProgrammingQuestion[0].questions[0]
   );
-
   const [currentSubIdx, setcurrentSubIdx] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [trueAnswers, setTrueAnswers] = useState(0);
-
   const handleClick = (selectedOption) => {
     const currentAnswer = currentQuestion.answer;
-
     if (selectedOption === currentAnswer) {
       setTrueAnswers(trueAnswers + 1);
     }
-
     if (
       currentQuestionIndex <
       ProgrammingQuestion[currentSubIdx].questions.length - 1
@@ -36,8 +42,7 @@ function QuizPaper() {
       setShowResult(true);
     }
   };
-
-  const tryAgain = () => {
+ const tryAgain = () => {
     setCurrentQuestionIndex(0);
     setCurrentQuestion(ProgrammingQuestion[0].questions[0]);
     setTrueAnswers(0);
@@ -45,7 +50,6 @@ function QuizPaper() {
 
     setcurrentSubIdx(0);
   };
-
   return (
     <div className="h-screen bg-cyan-600 flex items-center justify-center">
       <div className="h-64 bg-[#091d31] w-[600px] m-auto rounded-xl flex flex-row justify-between shadow-2xl">
@@ -57,10 +61,10 @@ function QuizPaper() {
               <h1 className="ml-4 text-4xl mt-4">
                 Question No {currentQuestionIndex + 1}
                 <span className="text-[20px]">
-                  /{ProgrammingQuestion[currentSubIdx].questions.length}
+                  /{finalSub[currentSubIdx].questions.length}
                 </span>
               </h1>
-              <p className="text-xl ml-4 mt-6">{currentQuestion.question}</p>
+              <p className="text-xl ml-4 mt-6">{currentQuestions[0].question}</p>
             </div>
             <div>
               {currentQuestion.options.map((item, index) => (
