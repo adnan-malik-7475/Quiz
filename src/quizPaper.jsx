@@ -1,81 +1,90 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ProgrammingQuestion } from "./Questions";
-import Result from "./Result";
-import Button from './InputComponent'
+import Button from './InputComponent';
+import Result from "./result";
 
 function QuizPaper() {
-
-
   const selectedSubject = useSelector((state) => state.questions);
+  // console.log(selectedSubject)
 
-  const finalSub = ProgrammingQuestion.filter((sub) => sub.subject === selectedSubject)
-  console.log(finalSub)
-  const [currentQuestions, setCurrentQuestions] = useState(finalSub.map((sub) => sub.questions));
-  console.log(currentQuestions)
-  
-  const [currentQuestion, setCurrentQuestion] = useState(
-    ProgrammingQuestion[0].questions[0]
-  );
-  const [currentSubIdx, setcurrentSubIdx] = useState(0);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const finalSub = ProgrammingQuestion.filter((sub) => sub.subject === selectedSubject);
+  useEffect(() => {
+    setCurrentQuestions(finalSub.map((sub) => sub.questions).flat());
+  }, [selectedSubject, finalSub]);
+
+  const isSubjectGiven = finalSub.length > 0;
+
+  // console.log(finalSub)
+  const [currentQuestions, setCurrentQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState([0]);
+
+  const [currentQuestionIdx, setcurrentQuestionIdx] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [trueAnswers, setTrueAnswers] = useState(0);
+  useEffect(() => {
+    if (currentQuestions.length > 0) {
+      setCurrentQuestion(currentQuestions[0]);
+    }
+  }, [currentQuestions]);
+
   const handleClick = (selectedOption) => {
     const currentAnswer = currentQuestion.answer;
     if (selectedOption === currentAnswer) {
       setTrueAnswers(trueAnswers + 1);
     }
-    if (
-      currentQuestionIndex <
-      ProgrammingQuestion[currentSubIdx].questions.length - 1
-    ) {
-      setCurrentQuestion(
-        ProgrammingQuestion[currentSubIdx].questions[currentQuestionIndex + 1]
-      );
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentSubIdx < ProgrammingQuestion.length - 1) {
-      setcurrentSubIdx(currentSubIdx + 1);
-      setCurrentQuestion(ProgrammingQuestion[currentSubIdx + 1].questions[0]);
-      setCurrentQuestionIndex(0);
+
+    if (currentQuestionIdx < currentQuestions.length - 1) {
+
+      setCurrentQuestion(currentQuestions[currentQuestionIdx + 1]);
+      setcurrentQuestionIdx(currentQuestionIdx + 1);
     } else {
       setShowResult(true);
     }
   };
- const tryAgain = () => {
-    setCurrentQuestionIndex(0);
-    setCurrentQuestion(ProgrammingQuestion[0].questions[0]);
+
+  const tryAgain = () => {
+    setcurrentQuestionIdx(0);
     setTrueAnswers(0);
     setShowResult(false);
-
-    setcurrentSubIdx(0);
   };
+
   return (
     <div className="h-screen bg-cyan-600 flex items-center justify-center">
-      <div className="h-64 bg-[#091d31] w-[600px] m-auto rounded-xl flex flex-row justify-between shadow-2xl">
-        {showResult ? (
-          <Result answer={trueAnswers} tryAgain={tryAgain} />
+        <div className="h-64 bg-[#091d31] w-[600px] m-auto rounded-xl flex flex-row justify-between shadow-2xl">
+        {isSubjectGiven ? (
+          showResult ? (
+            <Result answer={trueAnswers} tryAgain={tryAgain} />
+          ) : (
+            <>
+              <div className="text-white">
+                <h1 className="ml-4 text-4xl mt-4">
+                  Question No {currentQuestionIdx + 1}/{currentQuestions.length}
+                </h1>
+                {currentQuestion && (
+                  <p className="text-xl ml-4 mt-6">{currentQuestion.question}</p>
+                )}
+              </div>
+              <div>
+
+                {currentQuestion &&
+                  currentQuestion.options &&
+                  currentQuestion.options.map((item, index) => (
+
+                    <Button
+                      key={index}
+                      text={item}
+                      onClick={() => handleClick(item)}
+                    />
+                  ))}
+
+              </div>
+            </>
+          )
         ) : (
-          <>
-            <div className="text-white">
-              <h1 className="ml-4 text-4xl mt-4">
-                Question No {currentQuestionIndex + 1}
-                <span className="text-[20px]">
-                  /{finalSub[currentSubIdx].questions.length}
-                </span>
-              </h1>
-              <p className="text-xl ml-4 mt-6">{currentQuestions[0].question}</p>
-            </div>
-            <div>
-              {currentQuestion.options.map((item, index) => (
-                <Button
-                  key={index}
-                  text={item}
-                  onClick={() => handleClick(item)}
-                />
-              ))}
-            </div>
-          </>
+          <div className="text-white">
+            <p className="h-24 w-[560px]  mt-12 flex  ml-8 font-bold text-white text-4xl">Please Go back and select your  subject !</p>
+          </div>
         )}
       </div>
     </div>
@@ -83,3 +92,6 @@ function QuizPaper() {
 }
 
 export default QuizPaper;
+
+
+
