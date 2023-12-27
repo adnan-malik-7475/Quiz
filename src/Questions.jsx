@@ -112,4 +112,80 @@ export const ProgrammingQuestion = [
       },
     ],
   },
+ {
+    subject: "Computer",
+    questions: [
+      {
+        id: 11,
+        question: "The Brain of computer that executes the instructions",
+        options: ["CPU", "RAM", "ROM", "None of the Above "],
+        answer: "CPU",
+      },
+      {
+        id: 12,
+        question: " CU  stands for",
+        options: [
+          "Control Unit ",
+          "Cache Unit",
+          "Calculating Unit",
+          "Com Unit",
+        ],
+        answer: "Control Unit",
+      },
+      {
+        id: 13,
+        question: "An Important Charateristic of RAM is",
+        options: ["Read Only", "Write Only", "Volatile", "Non Volatile"],
+        answer: "Volatile",
+      },
+      {
+        id: 14,
+        question: "Memory is madeup of",
+        options: ["Set of Wires", "Set of Circuits", "BIOS", "Cells"],
+        answer: "Cells",
+      },
+      {
+        id: 15,
+        question: "CPU is also called",
+        options: ["ALU", "CU", "Processor", "BUS"],
+        answer: "Processor",
+      },
+    ],
+  },
+  {
+    subject: "Physics",
+    questions: [
+      {
+        id: 16,
+        question: "Force is equal to?",
+        options: ["F=ma", "F=m/a", "F=1/ma", "F= m+a"],
+        answer: "F=ma",
+      },
+      {
+        id: 17,
+        question: "The SI unit of force is?",
+        options: ["kilogram", "Ampere", "Newton", "candela"],
+        answer: "Newton",
+      },
+      {
+        id: 18,
+        question: "Which equation represents the momentum?",
+        options: ["ma", "m+a", "mv", "m+v"],
+        answer: "mv",
+      },
+      {
+        id: 19,
+        question: "SI unit of momentum is?",
+        options: ["Ns", "Ns^-1", "Ns^-2", "N"],
+        answer: "Ns",
+      },
+      {
+        id: 20,
+        question: "Head to tail rule can be used to add _____ forces?",
+        options: ["one", "two", "three", "Any number of forces"],
+        answer: "Any number of forces",
+      },
+    ],
+  }
+  
 ];

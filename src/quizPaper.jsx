@@ -6,39 +6,40 @@ import Result from "./result";
 
 function QuizPaper() {
   const selectedSubject = useSelector((state) => state.questions);
-  // console.log(selectedSubject)
 
-  const finalSub = ProgrammingQuestion.filter((sub) => sub.subject === selectedSubject);
-  useEffect(() => {
-    setCurrentQuestions(finalSub.map((sub) => sub.questions).flat());
-  }, [selectedSubject, finalSub]);
-
-  const isSubjectGiven = finalSub.length > 0;
-
-  // console.log(finalSub)
   const [currentQuestions, setCurrentQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState([0]);
-
+  
+  const [currentQuestion, setCurrentQuestion] = useState();
   const [currentQuestionIdx, setcurrentQuestionIdx] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [trueAnswers, setTrueAnswers] = useState(0);
+
+  useEffect(() => {
+
+    setCurrentQuestions(
+      ProgrammingQuestion.filter((sub) => sub.subject === selectedSubject).flatMap((sub) => sub.questions)
+    );
+  }, [selectedSubject]);
+
   useEffect(() => {
     if (currentQuestions.length > 0) {
-      setCurrentQuestion(currentQuestions[0]);
+      setCurrentQuestion(currentQuestions[currentQuestionIdx]);
     }
-  }, [currentQuestions]);
+  }, [currentQuestionIdx, currentQuestions]);
 
   const handleClick = (selectedOption) => {
+    
     const currentAnswer = currentQuestion.answer;
+
     if (selectedOption === currentAnswer) {
       setTrueAnswers(trueAnswers + 1);
     }
 
     if (currentQuestionIdx < currentQuestions.length - 1) {
-
-      setCurrentQuestion(currentQuestions[currentQuestionIdx + 1]);
       setcurrentQuestionIdx(currentQuestionIdx + 1);
-    } else {
+    }
+
+    else {
       setShowResult(true);
     }
   };
@@ -51,8 +52,8 @@ function QuizPaper() {
 
   return (
     <div className="h-screen bg-cyan-600 flex items-center justify-center">
-        <div className="h-64 bg-[#091d31] w-[600px] m-auto rounded-xl flex flex-row justify-between shadow-2xl">
-        {isSubjectGiven ? (
+      <div className="h-64 bg-[#091d31] w-[600px] m-auto rounded-xl flex flex-row justify-between shadow-2xl">
+        {
           showResult ? (
             <Result answer={trueAnswers} tryAgain={tryAgain} />
           ) : (
@@ -66,32 +67,22 @@ function QuizPaper() {
                 )}
               </div>
               <div>
-
-                {currentQuestion &&
-                  currentQuestion.options &&
+                {currentQuestion && currentQuestion.options ? (
                   currentQuestion.options.map((item, index) => (
-
                     <Button
                       key={index}
                       text={item}
                       onClick={() => handleClick(item)}
                     />
-                  ))}
-
+                  ))
+                ) : null}
               </div>
             </>
           )
-        ) : (
-          <div className="text-white">
-            <p className="h-24 w-[560px]  mt-12 flex  ml-8 font-bold text-white text-4xl">Please Go back and select your  subject !</p>
-          </div>
-        )}
+        }
       </div>
     </div>
   );
 }
 
 export default QuizPaper;
-
-
-
