@@ -8,12 +8,13 @@ function QuizPaper() {
   const selectedSubject = useSelector((state) => state.questions);
 
   const [currentQuestions, setCurrentQuestions] = useState([]);
-  
+
   const [currentQuestion, setCurrentQuestion] = useState();
+
   const [currentQuestionIdx, setcurrentQuestionIdx] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [trueAnswers, setTrueAnswers] = useState(0);
-
+  const isSubjectSelected=selectedSubject>0
   useEffect(() => {
 
     setCurrentQuestions(
@@ -31,20 +32,21 @@ function QuizPaper() {
     
     const currentAnswer = currentQuestion.answer;
 
-    if (selectedOption === currentAnswer) {
+    if(selectedOption === currentAnswer){
       setTrueAnswers(trueAnswers + 1);
     }
 
-    if (currentQuestionIdx < currentQuestions.length - 1) {
+    if(currentQuestionIdx < currentQuestions.length - 1){
       setcurrentQuestionIdx(currentQuestionIdx + 1);
     }
+    
 
-    else {
+    else{
       setShowResult(true);
     }
   };
 
-  const tryAgain = () => {
+  const tryAgain = ()=>{
     setcurrentQuestionIdx(0);
     setTrueAnswers(0);
     setShowResult(false);
@@ -53,7 +55,7 @@ function QuizPaper() {
   return (
     <div className="h-screen bg-cyan-600 flex items-center justify-center">
       <div className="h-64 bg-[#091d31] w-[600px] m-auto rounded-xl flex flex-row justify-between shadow-2xl">
-        {
+        { 
           showResult ? (
             <Result answer={trueAnswers} tryAgain={tryAgain} />
           ) : (
