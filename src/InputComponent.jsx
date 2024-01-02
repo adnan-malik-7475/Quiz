@@ -1,16 +1,19 @@
-import React from "react";
- const Button = ({ text, onClick }) => {
+import React from 'react';
+
+const TextInput = ({ label, id, type, placeholder, value, onChange,className }) => {
   return (
-    <div>
-      <button
-        onClick={onClick}
-        className={
-          "    text-white mt-4 mr-4  h-10 w-[200px] hover:bg-blue-500  rounded-2xl  outline-none focus:outline-none bg-[#091d31] border-[3px] border-cyan-600 text-xl font-light"
-        }
-      >
-        {text}
-      </button>
+    <div className="flex flex-col ">
+      <label className={className}>{label}</label>
+      <input
+        type={type}
+        id={id}
+        className="px-3 py-2 rounded-md border-2 border-cyan-600   shadow-sm "
+       placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };
-export default Button
+
+export default TextInput;

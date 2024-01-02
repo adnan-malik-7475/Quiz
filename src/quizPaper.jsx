@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ProgrammingQuestion } from "./Questions";
-import Button from './InputComponent';
+import Button from "./ButtonComponent";
 import Result from "./result";
 
 function QuizPaper() {
@@ -60,8 +60,8 @@ function QuizPaper() {
             <Result answer={trueAnswers} tryAgain={tryAgain} />
           ) : (
             <>
-              <div className="text-white">
-                <h1 className="ml-4 text-4xl mt-4">
+              <div className="text-white ">
+                <h1 className="ml-4 text-4xl mt-4 w-[294px] ">
                   Question No {currentQuestionIdx + 1}/{currentQuestions.length}
                 </h1>
                 {currentQuestion && (
@@ -75,6 +75,7 @@ function QuizPaper() {
                       key={index}
                       text={item}
                       onClick={() => handleClick(item)}
+                   
                     />
                   ))
                 ) : null}
